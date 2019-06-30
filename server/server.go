@@ -6,7 +6,8 @@ import (
 	"os"
 
 	"github.com/99designs/gqlgen/handler"
-	"github.com/wakashiyo/traph-go"
+	_ "github.com/go-sql-driver/mysql"
+	traph_go "github.com/wakashiyo/traph-go"
 )
 
 const defaultPort = "8080"

@@ -12,10 +12,6 @@ model:
 resolver:
   filename: resolver.go
   type: Resolver
-
-models:
-  Todo:
-    model: github.com/wakashiyo/traph-go.Todo
 # autobind: []
 # directives:
 #   deprecated:

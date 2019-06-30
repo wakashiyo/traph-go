@@ -1,25 +1,115 @@
-type Todo {
-  id: ID!
-  text: String
-  done: Boolean
-  user: User!
-}
-
 type User {
   id: ID!
-  name: String
+  name: String!
+  displayName: String!
+  email: String!
+}
+
+type Project {
+  id: ID!
+  name: String!
+  description: String!
+  issues: [Issue]!
+}
+
+type Issue {
+  id: ID!
+  projectId: ID!
+  name: String!
+  status: Boolean!
+  comments: [Comment]!
+}
+
+type Comment {
+  id: ID!
+  issueId: ID!
+  userId: ID!
+  text: String!
 }
 
 type Query {
-  todos: [Todo]!
-  todo(id: ID!): Todo
+  projects: [Project]!
+  project(id: ID!): Project!
 }
 
-input NewTodo {
+input NewUser {
+  name: String!
+  displayName: String!
+  email: String!
+}
+
+input editedUser {
+  id: ID!
+  name: String!
+  displayName: String!
+  email: String!
+}
+
+input deleteUser {
+  id: ID!
+}
+
+input NewProject {
+  name: String!
+  description: String!
+}
+
+input editedProject {
+  id: ID!
+  name: String!
+  description: String!
+}
+
+input NewIssue {
+  projectId: ID!
+  name: String!
+}
+
+input closeIssue {
+  id: ID!
+  status: Boolean!
+}
+
+input NewComment {
+  issueId: ID!
+  userId: ID!
   text: String!
-  userId: String!
+}
+
+type MutationResult {
+  statusCode: String!
+  statusMessage: String!
 }
 
 type Mutation {
-  createTodo(input: NewTodo!): Todo!
+  createUser(input: NewUser!): User!
+  updateUser(input: editedUser!): User!
+  deleteUser(input: deleteUser!): MutationResult!
+  createProject(input: NewProject!): Project!
+  updateProject(input: editedProject!): Project!
+  createIssue(input: NewIssue!): Issue!
+  closeIssue(input: closeIssue!): Issue!
+  createComment(input: NewComment!): [Comment]!
+  updateComment(input: NewComment!): [Comment]!
 }
+
+# type Todo {
+#   id: ID!
+#   text: String
+#   done: Boolean
+#   user: User!
+# }
+
+# type Query {
+#   todos: [Todo]!
+#   todo(id: ID!): Todo
+# }
+
+# input NewTodo {
+#   text: String!
+#   userId: String!
+# }
+
+# type Mutation {
+#   createTodo(input: NewTodo!): Todo!
+# }

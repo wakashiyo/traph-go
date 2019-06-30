@@ -2,12 +2,80 @@
 
 package traph_go
 
-type NewTodo struct {
-	Text   string `json:"text"`
-	UserID string `json:"userId"`
+type Comment struct {
+	ID      string `json:"id"`
+	IssueID string `json:"issueId"`
+	UserID  string `json:"userId"`
+	Text    string `json:"text"`
+}
+
+type Issue struct {
+	ID        string     `json:"id"`
+	ProjectID string     `json:"projectId"`
+	Name      string     `json:"name"`
+	Status    bool       `json:"status"`
+	Comments  []*Comment `json:"comments"`
+}
+
+type MutationResult struct {
+	StatusCode    string `json:"statusCode"`
+	StatusMessage string `json:"statusMessage"`
+}
+
+type NewComment struct {
+	IssueID string `json:"issueId"`
+	UserID  string `json:"userId"`
+	Text    string `json:"text"`
+}
+
+type NewIssue struct {
+	ProjectID string `json:"projectId"`
+	Name      string `json:"name"`
+}
+
+type NewProject struct {
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}
+
+type NewUser struct {
+	Name        string `json:"name"`
+	DisplayName string `json:"displayName"`
+	Email       string `json:"email"`
+}
+
+type Project struct {
+	ID          string   `json:"id"`
+	Name        string   `json:"name"`
+	Description string   `json:"description"`
+	Issues      []*Issue `json:"issues"`
 }
 
 type User struct {
-	ID   string  `json:"id"`
-	Name *string `json:"name"`
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	DisplayName string `json:"displayName"`
+	Email       string `json:"email"`
+}
+
+type CloseIssue struct {
+	ID     string `json:"id"`
+	Status bool   `json:"status"`
+}
+
+type DeleteUser struct {
+	ID string `json:"id"`
+}
+
+type EditedProject struct {
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}
+
+type EditedUser struct {
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	DisplayName string `json:"displayName"`
+	Email       string `json:"email"`
 }

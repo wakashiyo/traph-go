@@ -2,16 +2,9 @@ package traph_go
 
 import (
 	"context"
-	crand "crypto/rand"
-	"fmt"
-	"math"
-	"math/big"
-	"math/rand"
 ) // THIS CODE IS A STARTING POINT ONLY. IT WILL NOT BE UPDATED WITH SCHEMA CHANGES.
 
-type Resolver struct {
-	todos []*Todo
-}
+type Resolver struct{}
 
 func (r *Resolver) Mutation() MutationResolver {
 	return &mutationResolver{r}
@@ -19,43 +12,42 @@ func (r *Resolver) Mutation() MutationResolver {
 func (r *Resolver) Query() QueryResolver {
 	return &queryResolver{r}
 }
-func (r *Resolver) Todo() TodoResolver {
-	return &todoResolver{r}
-}
 
 type mutationResolver struct{ *Resolver }
 
-func (r *mutationResolver) CreateTodo(ctx context.Context, input NewTodo) (*Todo, error) {
-
-	seed, _ := crand.Int(crand.Reader, big.NewInt(math.MaxInt64))
-	rand.Seed(seed.Int64())
-	d := rand.Int63()
-
-	todo := &Todo{
-		Text:   input.Text,
-		ID:     fmt.Sprintf("T%d", d),
-		UserID: input.UserID,
-	}
-	r.todos = append(r.todos, todo)
-	return todo, nil
+func (r *mutationResolver) CreateUser(ctx context.Context, input NewUser) (*User, error) {
+	panic("not implemented")
+}
+func (r *mutationResolver) UpdateUser(ctx context.Context, input EditedUser) (*User, error) {
+	panic("not implemented")
+}
+func (r *mutationResolver) DeleteUser(ctx context.Context, input DeleteUser) (*MutationResult, error) {
+	panic("not implemented")
+}
+func (r *mutationResolver) CreateProject(ctx context.Context, input NewProject) (*Project, error) {
+	panic("not implemented")
+}
+func (r *mutationResolver) UpdateProject(ctx context.Context, input EditedProject) (*Project, error) {
+	panic("not implemented")
+}
+func (r *mutationResolver) CreateIssue(ctx context.Context, input NewIssue) (*Issue, error) {
+	panic("not implemented")
+}
+func (r *mutationResolver) CloseIssue(ctx context.Context, input CloseIssue) (*Issue, error) {
+	panic("not implemented")
+}
+func (r *mutationResolver) CreateComment(ctx context.Context, input NewComment) ([]*Comment, error) {
+	panic("not implemented")
+}
+func (r *mutationResolver) UpdateComment(ctx context.Context, input NewComment) ([]*Comment, error) {
+	panic("not implemented")
 }
 
 type queryResolver struct{ *Resolver }
 
-func (r *queryResolver) Todos(ctx context.Context) ([]*Todo, error) {
-	return r.todos, nil
-}
-func (r *queryResolver) Todo(ctx context.Context, id string) (*Todo, error) {
-	t := r.todos[0]
-	return t, nil
-}
-
-type todoResolver struct{ *Resolver }
-
-func (r *todoResolver) Done(ctx context.Context, obj *Todo) (*bool, error) {
+func (r *queryResolver) Projects(ctx context.Context) ([]*Project, error) {
 	panic("not implemented")
 }
-func (r *todoResolver) User(ctx context.Context, obj *Todo) (*User, error) {
-	name := "user " + obj.UserID
-	return &User{ID: obj.UserID, Name: &name}, nil
+func (r *queryResolver) Project(ctx context.Context, id string) (*Project, error) {
+	panic("not implemented")
 }
